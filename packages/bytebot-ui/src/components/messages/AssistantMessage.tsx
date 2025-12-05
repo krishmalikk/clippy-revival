@@ -85,7 +85,7 @@ export function AssistantMessage({
           </div>
         </div>
       ) : (
-        <div>
+        <div className="flex-1 min-w-0 overflow-hidden" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
           {group.messages.map((message) => (
             <div
               key={message.id}

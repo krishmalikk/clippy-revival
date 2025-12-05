@@ -8,8 +8,8 @@ interface TextContentProps {
 
 export function TextContent({ block }: TextContentProps) {
   return (
-    <div className="mb-3">
-      <div className="text-bytebot-bronze-dark-8 prose prose-sm max-w-none text-sm">
+    <div className="mb-3 overflow-hidden">
+      <div className="text-bytebot-bronze-dark-8 prose prose-sm max-w-none text-sm break-words" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
         <ReactMarkdown
           components={{
             h1: ({ children }) => (

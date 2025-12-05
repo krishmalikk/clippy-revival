@@ -126,10 +126,33 @@ export async function startTask(data: {
   model: Model;
   files?: FileWithBase64[];
 }): Promise<Task | null> {
-  return apiRequest<Task>("/tasks", {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+  try {
+    const response = await fetch(`${API_CONFIG.baseUrl}/tasks`, {
+      method: "POST",
+      headers: {
+        ...API_CONFIG.headers,
+      },
+      credentials: API_CONFIG.credentials,
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Task creation failed: ${response.status} ${response.statusText}`, errorText);
+      throw new Error(
+        `Failed to create task: ${response.status} ${response.statusText}. ${errorText.substring(0, 200)}`
+      );
+    }
+
+    const task = await response.json();
+    return task;
+  } catch (error) {
+    console.error(`Error creating task:`, error);
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error("Unknown error occurred while creating task");
+  }
 }
 
 /**
