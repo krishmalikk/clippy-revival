@@ -46,9 +46,9 @@ export function MessageContent({
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0 overflow-hidden" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
       {visibleBlocks.map((block, index) => (
-        <div key={index}>
+        <div key={index} className="min-w-0">
           {isTextContentBlock(block) && <TextContent block={block} />}
 
           {isToolResultContentBlock(block) &&
