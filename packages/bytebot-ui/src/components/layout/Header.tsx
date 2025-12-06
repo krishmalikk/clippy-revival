@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { useTheme } from "next-themes";
+"use client";
 
-import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  DocumentCodeIcon,
-  TaskDaily01Icon,
-  Home01Icon,
-  ComputerIcon,
-} from "@hugeicons/core-free-icons";
+import React from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ClippyMini } from "../Clippy";
 
 export function Header() {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
-  // After mounting, we can safely show the theme-dependent content
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Function to determine if a link is active
   const isActive = (path: string) => {
     if (path === "/") {
       return pathname === "/";
@@ -30,65 +15,67 @@ export function Header() {
     return pathname?.startsWith(path);
   };
 
-  // Get classes for navigation links based on active state
   const getLinkClasses = (path: string) => {
-    const baseClasses =
-      "flex items-center gap-1.5 transition-colors px-3 py-1.5 rounded-lg";
-    const activeClasses =
-      "bg-bytebot-bronze-light-a3 text-bytebot-bronze-light-12";
-    const inactiveClasses =
-      "text-bytebot-bronze-dark-9 hover:bg-bytebot-bronze-light-a1 hover:text-bytebot-bronze-light-12";
-
+    const baseClasses = "px-3 py-1 text-xs cursor-pointer";
+    const activeClasses = "bg-[#000080] text-white";
+    const inactiveClasses = "hover:bg-[#000080] hover:text-white";
     return `${baseClasses} ${isActive(path) ? activeClasses : inactiveClasses}`;
   };
 
   return (
-    <header className="bg-background flex items-center justify-between border-b p-4">
-      <div className="flex items-center gap-6">
-        {/* Logo without link */}
-        <div>
-          {mounted ? (
-            <Image
-              src={
-                resolvedTheme === "dark"
-                  ? "/bytebot_transparent_logo_white.svg"
-                  : "/bytebot_transparent_logo_dark.svg"
-              }
-              alt="Bytebot Logo"
-              width={100}
-              height={30}
-              className="h-8 w-auto"
-            />
-          ) : (
-            <div className="h-8 w-[110px]" />
-          )}
-        </div>
-        <div className="border-bytebot-bronze-dark-11 h-5 border border-l-[0.5px]"></div>
+    <div className="win98-window">
+      {/* Windows 98 Title Bar */}
+      <div className="win98-titlebar">
         <div className="flex items-center gap-2">
-          <Link href="/" className={getLinkClasses("/")}>
-            <HugeiconsIcon icon={Home01Icon} className="h-4 w-4" />
-            <span className="text-sm">Home</span>
-          </Link>
-          <Link href="/tasks" className={getLinkClasses("/tasks")}>
-            <HugeiconsIcon icon={TaskDaily01Icon} className="h-4 w-4" />
-            <span className="text-sm">Tasks</span>
-          </Link>
-          <Link href="/desktop" className={getLinkClasses("/desktop")}>
-            <HugeiconsIcon icon={ComputerIcon} className="h-4 w-4" />
-            <span className="text-sm">Desktop</span>
-          </Link>
-          <Link
-            href="https://docs.bytebot.ai/quickstart"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={getLinkClasses("https://docs.bytebot.ai")}
-          >
-            <HugeiconsIcon icon={DocumentCodeIcon} className="h-4 w-4" />
-            <span className="text-sm">Docs</span>
-          </Link>
+          <ClippyMini />
+          <span className="font-bold text-sm tracking-wide">
+            📎 Clippy&apos;s Computer Classroom
+          </span>
+        </div>
+        <div className="flex gap-1">
+          <button className="win98-titlebar-btn" title="Minimize">_</button>
+          <button className="win98-titlebar-btn" title="Maximize">□</button>
+          <button className="win98-titlebar-btn" title="Close">✕</button>
         </div>
       </div>
-      <div className="flex items-center gap-3"></div>
-    </header>
+
+      {/* Windows 98 Menu Bar */}
+      <div className="win98-menubar flex items-center">
+        <Link href="/" className={getLinkClasses("/")}>
+          <span className="underline">F</span>ile
+        </Link>
+        <Link href="/tasks" className={getLinkClasses("/tasks")}>
+          <span className="underline">L</span>essons
+        </Link>
+        <Link href="/desktop" className={getLinkClasses("/desktop")}>
+          <span className="underline">P</span>ractice
+        </Link>
+        <Link
+          href="https://docs.bytebot.ai/quickstart"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={getLinkClasses("https://docs.bytebot.ai")}
+        >
+          <span className="underline">H</span>elp
+        </Link>
+      </div>
+
+      {/* Toolbar */}
+      <div className="bg-[#c0c0c0] border-b border-[#808080] p-1 flex items-center gap-1">
+        <Link href="/" className="win98-button flex items-center gap-1 text-[10px] py-0.5 px-2 min-w-0">
+          🏠 Home
+        </Link>
+        <Link href="/tasks" className="win98-button flex items-center gap-1 text-[10px] py-0.5 px-2 min-w-0">
+          📚 My Lessons
+        </Link>
+        <Link href="/desktop" className="win98-button flex items-center gap-1 text-[10px] py-0.5 px-2 min-w-0">
+          🖥️ Practice
+        </Link>
+        <div className="h-4 w-px bg-[#808080] mx-1" />
+        <span className="text-[10px] text-[#404040]">
+          Watch → Learn → Practice → Get Graded! 🎓
+        </span>
+      </div>
+    </div>
   );
 }

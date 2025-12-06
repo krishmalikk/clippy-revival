@@ -81,7 +81,7 @@ export function ChatContainer({
   };
 
   return (
-    <div className="bg-bytebot-bronze-light-3 flex h-full flex-col">
+    <div className="bg-bytebot-bronze-light-3 flex h-full flex-col overflow-hidden">
       {isLoadingSession ? (
         <div className="bg-bytebot-bronze-light-3 border-bytebot-bronze-light-7 flex h-full min-h-80 items-center justify-center overflow-hidden rounded-lg border">
           <Loader size={32} />

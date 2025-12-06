@@ -57,11 +57,11 @@ export function UserMessage({ group, messageIdToIndex }: UserMessageProps) {
                   }
                   return null;
                 })}
-                <div className="bg-bytebot-bronze-light-4 space-y-2 rounded-md px-2 py-1">
+                <div className="bg-bytebot-bronze-light-4 space-y-2 rounded-md px-2 py-1 overflow-hidden" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
                   {message.content.map((block, index) => (
                     <div
                       key={index}
-                      className="text-bytebot-bronze-light-12 text-sm"
+                      className="text-bytebot-bronze-light-12 text-sm break-words"
                     >
                       {isTextContentBlock(block) && (
                         <ReactMarkdown>{block.text}</ReactMarkdown>
@@ -116,9 +116,9 @@ export function UserMessage({ group, messageIdToIndex }: UserMessageProps) {
               }
               return null;
             })}
-            <div className="space-y-2 rounded-md text-fuchsia-600">
+            <div className="space-y-2 rounded-md text-fuchsia-600 overflow-hidden" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
               {message.content.map((block, index) => (
-                <div key={index} className="prose prose-sm max-w-none text-sm">
+                <div key={index} className="prose prose-sm max-w-none text-sm break-words">
                   {isTextContentBlock(block) && (
                     <ReactMarkdown>{block.text}</ReactMarkdown>
                   )}
